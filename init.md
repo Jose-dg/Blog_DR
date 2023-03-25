@@ -5,6 +5,7 @@ npx tailwindcss init -->
 <!-- npm i @metamask/detect-provider @openzeppelin/contracts -->
 <!-- npm i @metamask/detect-provider @openzeppelin/contracts babel-polyfill babel-preset-env -->
 <!-- npm i babel-preset-stage-2 babel-preset-stage-3 babel-register chai chai-as-promised chai-bignumber react-router-dom truffle web3 redux-devtools-extension react-redux redux-thunk react-toastify axios-->
+<!-- npm i tailwind-scrollbar-hide tailwindcss-question-mark   -->
 
 <!-- The Ethernaut web-based game will have you look for subtle vulnerabilities in smart contracts as you advance through levels of increasing difficulty. -->
 

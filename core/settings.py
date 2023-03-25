@@ -28,6 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+SITE_NAME = 'SoloPython'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -38,6 +40,10 @@ if not DEBUG:
         'diem.com.co',
         'dev-diem.site',
     ]
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application de finition
 
@@ -59,16 +65,27 @@ THIRD_PARTY_APPS =[
 
 PROJECT_APPS = [
     'apps.blog',
-    'apps.category'
+    'apps.category',
+    'apps.contacts'
 ]
-
-CKEDITOR_UPLOAD_PATH = "/media/"
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'autoParagraph': False
+    }
+}
+
+CKEDITOR_UPLOAD_PATH = "/media/"
+
+
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -108,6 +125,8 @@ DATABASES = {
     }
 }
 
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
+
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8000',
@@ -117,6 +136,19 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
 ]
+
+if not DEBUG:
+    CORS_ORIGIN_WHITELIST = [
+        'https://solopython.com',
+        'https://admin.solopython.com',
+        'https://blog.solopython.com',
+    ]
+
+    CSRF_TRUSTED_ORIGINS = [
+        'hhttps://solopython.com',
+        'https://admin.solopython.com',
+        'https://blog.solopython.com',
+    ]
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
@@ -188,11 +220,16 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
-
 FILE_UPLOAD_PERMISSIONS = 0o640
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+
+ACTIVE_CAMPAIGN_URL=os.environ.get('ACTIVE_CAMPAIGN_URL')
+ACTIVE_CAMPAIGN_KEY=os.environ.get('ACTIVE_CAMPAIGN_KEY')
+
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
 
 if not DEBUG:
     DEFAULT_FROM_EMAIL="Uridium <mail@uridium.network>"

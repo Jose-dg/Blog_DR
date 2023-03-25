@@ -1,7 +1,12 @@
-import React from 'react';
 import FullWidthLayout from '../../hocs/layouts/FullWidthLayout';
+import { connect } from 'react-redux'
 
-function Home(props) {
+
+function Home({
+
+}) {
+
+
     return (
         <FullWidthLayout>
             Home
@@ -9,4 +14,17 @@ function Home(props) {
     );
 }
 
-export default Home;
+
+const mapStateToProps = state => ({
+ 
+})
+
+export default connect(mapStateToProps,{
+
+})(Home);
+
+
+
+
+
+
