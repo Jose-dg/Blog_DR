@@ -34,3 +34,6 @@ npx tailwindcss init -->
     "memory": Este modificador se puede usar para indicar que un parámetro solo se almacena en la memoria temporalmente y no se guarda en la blockchain. Esto puede ser útil si desea realizar operaciones con datos sin guardarlos en la cadena de bloques.
 
         Es importante tener en cuenta que el uso de modificadores en los parámetros del evento puede afectar el costo de gas de las transacciones. Por lo tanto, es importante considerar cuidadosamente qué modificadores usar en función de las necesidades del caso de uso y las limitaciones de recursos. -->
+
+
+<!-- Para dar 1 dolar o regalar un porcentaje de dolares, lo que debemos hacers crear un token y desplegarlo de esta forma las personas van a saber que lo que estan pagando es real, de forma que se puede devolver  -->

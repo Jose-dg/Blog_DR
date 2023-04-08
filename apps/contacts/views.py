@@ -9,9 +9,9 @@ import requests
 activecampaign_url = settings.ACTIVE_CAMPAIGN_URL
 activecampaign_key = settings.ACTIVE_CAMPAIGN_KEY
 
-
 class ContactCreateView(APIView):
     def post(self, request, format=None):
+        
         data = self.request.data
 
         name = data['name']
@@ -48,8 +48,10 @@ class ContactCreateView(APIView):
                 message=message,
                 budget=budget,
             )
+            
 
-            url = activecampaign_url + '/api/3/contact/sync'
+            url = activecampaign_url + '/api/3/contacts'
+        
             data = {
                 "contact":{
                     "email": email,
@@ -59,12 +61,13 @@ class ContactCreateView(APIView):
             }
 
             headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'content-Type': 'application/json',
+                'accept': 'application/json',
                 'Api-Token': activecampaign_key
             }
 
             response = requests.post(url, json=data, headers=headers)
+            
             if response.status_code != 201 and response.status_code != 200:
                 return Response(
                     {'error': 'Something went wrong when creating contact'},
